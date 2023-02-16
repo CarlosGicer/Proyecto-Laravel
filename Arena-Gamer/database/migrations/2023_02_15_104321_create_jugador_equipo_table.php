@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('jugador_equipo', function (Blueprint $table) {
             $table->primary(['jugador_id', 'equipo_id']);
-            $table->foreignId('jugador_id')->reference('id')->on('jugadores');
-            $table->foreignId('equipo_id')->reference('id')->on('equipos');
+            $table->foreignId('jugador_id')->references('id')->on('users');
+            $table->foreignId('equipo_id')->references('id')->on('equipos');
         });
     }
 

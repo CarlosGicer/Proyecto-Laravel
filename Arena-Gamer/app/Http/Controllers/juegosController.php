@@ -14,7 +14,7 @@ class juegosController extends Controller
      */
     public function index()
     {
-        return view('web.senderos', [ 'juegos' => Juego::all() ]);
+        return view('web.juegos', [ 'juegos' => Juego::all() ]);
     }
 
     /**

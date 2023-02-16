@@ -1,10 +1,10 @@
 @extends('web.layout')
 
-@section('titulo', 'Juegos')
+@section('titulo', 'Juegos de Torneos')
 
 @section('main')
 
-@foreach($Juegos as $juego)
+@foreach($juegos as $juego)
 
 <div class="card" style="width: 18rem;">
     <img src="..." class="card-img-top" alt="...">
@@ -21,5 +21,5 @@
 @endsection
 
 @section('footer')
-
+<p>Es el footer</p>
 @endsection

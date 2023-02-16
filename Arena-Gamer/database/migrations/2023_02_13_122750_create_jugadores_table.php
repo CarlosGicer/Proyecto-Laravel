@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('jugadores', function (Blueprint $table) {
+      /*  Schema::create('jugadores', function (Blueprint $table) {
             $table->bigIncrements('id');
             $table->string('nick');
             $table->string('país');
@@ -21,9 +21,9 @@ return new class extends Migration
             $table->string('password');
             $table->date('fnacimiento');
             $table->string('imagen');
-            $table->foreignId('id_juego_favorito')->reference('id')->on('juegos');
+            $table->foreignId('id_juego_favorito')->references('id')->on('juegos');
             $table->string('nivel');
-        });
+        });*/
     }
 
     /**

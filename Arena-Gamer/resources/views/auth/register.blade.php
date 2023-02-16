@@ -4,15 +4,22 @@
 
         <!-- Name -->
         <div>
-            <x-input-label for="name" :value="__('Name')" />
-            <x-text-input id="name" class="block mt-1 w-full" type="text" name="name" :value="old('name')" required autofocus autocomplete="name" />
-            <x-input-error :messages="$errors->get('name')" class="mt-2" />
+            <x-input-label for="nick" :value="__('nick')" />
+            <x-text-input id="nick" class="block mt-1 w-full" type="text" name="nick" :value="old('nick')" required autofocus autocomplete="nick" />
+            <x-input-error :messages="$errors->get('nick')" class="mt-2" />
+        </div>
+
+        <!-- Pais -->
+        <div>
+            <x-input-label for="país" :value="__('país')" />
+            <x-text-input id="país" class="block mt-1 w-full" type="text" name="país" :value="old('país')" required autofocus autocomplete="país" />
+            <x-input-error :messages="$errors->get('país')" class="mt-2" />
         </div>
 
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />
-            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="username" />
+            <x-text-input id="email" class="block mt-1 w-full" type="email" name="email" :value="old('email')" required autocomplete="email" />
             <x-input-error :messages="$errors->get('email')" class="mt-2" />
         </div>
 
@@ -26,6 +33,13 @@
                             required autocomplete="new-password" />
 
             <x-input-error :messages="$errors->get('password')" class="mt-2" />
+        </div>
+
+          <!-- Email Address -->
+          <div class="mt-4">
+            <x-input-label for="fnacimiento" :value="__('Fecha de Nacimiento')" />
+            <x-text-input id="fnacimiento" class="block mt-1 w-full" type="date" name="fnacimiento" :value="old('fnacimiento')" required autocomplete="fnacimiento" />
+            <x-input-error :messages="$errors->get('fnacimiento')" class="mt-2" />
         </div>
 
         <!-- Confirm Password -->

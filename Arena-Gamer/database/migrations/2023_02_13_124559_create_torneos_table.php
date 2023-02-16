@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('modalidad');
             $table->string('estado');
             $table->string('nivel');
-            $table->foreignId('id_juego')->reference('id')->on('juegos');
+            $table->foreignId('id_juego')->references('id')->on('juegos');
 
         });
     }
