@@ -25,10 +25,9 @@ class torneoSeeder extends Seeder
             'fecha' => Carbon::now(),
             'max_equipos' => rand(1,100),
             'modalidad' =>   rand(1,5),
-            'fecha' => Carbon::now(),
             'estado' => Str::random(10),
-            'nivel' => rand(1,100),
-            'id_juego' => rand(1,100),
+            'nivel' =>('principiante'),
+            'juego_id' =>(1),
 
         ]);
     }

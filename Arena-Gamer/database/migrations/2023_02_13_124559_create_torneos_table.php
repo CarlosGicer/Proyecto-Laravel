@@ -20,8 +20,8 @@ return new class extends Migration
             $table->integer('max_equipos');
             $table->integer('modalidad');
             $table->string('estado');
-            $table->string('nivel');
-            $table->foreignId('id_juego')->references('id')->on('juegos');
+            $table->enum('nivel',['principiante','intermedio','alto']);
+            $table->foreignId('juego_id')->references('id')->on('juegos');
 
         });
     }

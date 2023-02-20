@@ -17,6 +17,7 @@ return new class extends Migration
             $table->primary(['equipo_id', 'torneo_id']);
             $table->foreignId('equipo_id')->references('id')->on('equipos');
             $table->foreignId('torneo_id')->references('id')->on('torneos');
+            $table->timestamp('created_at')->nullable();
         });
     }
 

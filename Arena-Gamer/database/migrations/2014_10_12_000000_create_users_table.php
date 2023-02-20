@@ -13,7 +13,7 @@ return new class extends Migration
      */
     public function up()
     {
-       /* Schema::create('users', function (Blueprint $table) {
+        Schema::create('users', function (Blueprint $table) {
 
             $table->bigIncrements('id');
             $table->string('nick');
@@ -24,11 +24,11 @@ return new class extends Migration
             $table->string('password');
             $table->date('fnacimiento');
             $table->string('imagen')->nullable();
-            $table->foreignId('id_juego_favorito')->references('id')->on('juegos')->nullable();
-            $table->string('nivel')->nullable();
+            $table->foreignId('juego_favorito_id')->references('id')->on('juegos')->nullable();
+            $table->enum('nivel',['principiante','intermedio','alto'])->nullable();
             $table->rememberToken();
             $table->timestamps();
-        });*/
+        });
     }   
 
     /**
