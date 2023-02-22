@@ -21,9 +21,9 @@
       <div class="collapse navbar-collapse  justify-content-center ms-5  " id="navbarNavAltMarkup">
         <div class="navbar-nav pe-3 ms-5">
           <a class="nav-link  pe-3" aria-current="page" href="/">Home</a>
-          <a class="nav-link  pe-3" href="#">Equipos</a>
-          <a class="nav-link  pe-3" href="#">Torneos</a>
-          <a class="nav-link  pe-3" href="/juegos/prueba">Juegos</a>
+          <a class="nav-link  pe-3" href="/equipos">Equipos</a>
+          <a class="nav-link  pe-3" href="/torneos">Torneos</a>
+          <a class="nav-link  pe-3" href="/juegos">Juegos</a>
           @auth 
           <li><a class="nav-link scrollto" href="/profile">Perfil</a></li>
           @else
@@ -49,7 +49,7 @@
   </div>
 
   <!--PIE---->
-  <footer class="w-100 py-4 flex-shrink-0  bg-dark text-light">
+  <footer class="w-100 py-4 flex-shrink-0  bg-dark text-light" >
     <div class="container py-4">
       <div class="row gy-4 gx-5">
         <div class="col-lg-4 col-md-6">

@@ -21,6 +21,4 @@
 
 @endsection
 
-@section('footer')
-<p>Es el footer</p>
-@endsection
+

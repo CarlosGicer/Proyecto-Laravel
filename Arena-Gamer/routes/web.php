@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\equiposController;
+use App\Http\Controllers\torneosController;
 use App\Http\Controllers\juegosController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
@@ -25,8 +27,16 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
 });
 
-Route::get('/juegos/prueba', [juegosController::class, 'index'])->name('juegos.index');
+//Rutas sin login
+
+Route::get('/juegos', [juegosController::class, 'index'])->name('juegos.index');
+Route::get('/torneos', [torneosController::class, 'index'])->name('torneos.index');
+Route::get('/torneos/{torneo}', [torneosController::class, 'show'])->name('torneos.show');
+Route::get('/equipos', [equiposController::class, 'index'])->name('equipos.index');
+Route::get('/equipos/{equipo}', [equiposController::class, 'show'])->name('equipos.show');
 
 require __DIR__.'/auth.php';
