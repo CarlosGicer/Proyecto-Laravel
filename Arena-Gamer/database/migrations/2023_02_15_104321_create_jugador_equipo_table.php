@@ -14,8 +14,8 @@ return new class extends Migration
     public function up()
     {
         Schema::create('jugador_equipo', function (Blueprint $table) {
-            $table->primary(['jugador_id', 'equipo_id']);
-            $table->foreignId('jugador_id')->references('id')->on('users');
+            $table->primary(['user_id', 'equipo_id']);
+            $table->foreignId('user_id')->references('id')->on('users');
             $table->foreignId('equipo_id')->references('id')->on('equipos');
             $table->timestamp('created_at')->nullable();
         });

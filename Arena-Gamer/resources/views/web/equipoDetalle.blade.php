@@ -5,10 +5,22 @@
 @section('main')
 <div class="row">
 
-<h2>Componentes del equipo</h2>
+    <h3>Componentes del grupo {{ $equipo->nombre }}</h3>
+
+    @foreach($jugadores as $jugador)
+
+    @if (Auth::user()->id == $jugador->id)
+        <li class="list-group-item">{{$jugador->nick}} - {{$jugador->email}} 
+            <a href="/equipos/{{$equipo->id}}/jugadores/{{ Auth::user()->id }}/borrar"> <button>X</button></a>
+        </li>
+    @else
+        <li class="list-group-item">{{$jugador->nick}} - {{$jugador->email}}</li>
+    @endif
+
+@endforeach
 
    
-    <a href="#" class="btn btn-primary">Unirse</a>
+    <a href="/equipos/{{$equipo->id}}/jugadores/{{Auth::user()->id}}" class="btn btn-primary">Unirse</a>
 
 </div>
 

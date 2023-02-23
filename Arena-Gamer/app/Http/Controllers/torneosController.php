@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Equipo;
 use App\Models\Torneo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class torneosController extends Controller
@@ -81,5 +83,22 @@ class torneosController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+
+    public function inscribirse(Torneo $torneo , Equipo $equipo)
+    {
+        if ($torneo->componentes()->where('equipo_id', $equipo->id)->get()->count() == 0)
+            $torneo->componentes()->attach($equipo->id, ['created_at' => Carbon::now()]);
+
+        return view('web.torneoDetalle', ['torneo' => $torneo, 'equipo' => $torneo->componentes()->orderBy('nombre', 'asc')->get()]);
+    }
+
+    public function desinscribirse(Torneo $torneo , Equipo $equipo)
+    {
+        if ($torneo->componentes()->where('equipo_id', $equipo->id)->get()->count() == 1)
+            $torneo->componentes()->detach($equipo->id);
+
+        return view('web.torneoDetalle', ['torneo' => $torneo, 'equipo' => $torneo->componentes()->orderBy('nombre', 'asc')->get()]);
     }
 }

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Equipo;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class equiposController extends Controller
@@ -14,7 +16,7 @@ class equiposController extends Controller
      */
     public function index()
     {
-        return view('web.equipos', [ 'equipos' => Equipo::all() ]);
+        return view('web.equipos', ['equipos' => Equipo::all()]);
     }
 
     /**
@@ -46,7 +48,7 @@ class equiposController extends Controller
      */
     public function show(Equipo $equipo)
     {
-        return view('web.equipoDetalle', ['equipo' => $equipo]);
+        return view('web.equipoDetalle' , ['equipo' => $equipo, 'jugadores' => $equipo->componentes()->orderBy('nick', 'asc')->get()]);
     }
 
     /**
@@ -81,5 +83,21 @@ class equiposController extends Controller
     public function destroy($id)
     {
         //
+    }
+
+    public function inscribirse(Equipo $equipo, User $user)
+    {
+        if ($equipo->componentes()->where('user_id', $user->id)->get()->count() == 0)
+            $equipo->componentes()->attach($user->id, ['created_at' => Carbon::now()]);
+
+        return view('web.equipoDetalle', ['equipo' => $equipo, 'jugadores' => $equipo->componentes()->orderBy('nick', 'asc')->get()]);
+    }
+
+    public function desinscribirse(Equipo $equipo, User $user)
+    {
+        if ($equipo->componentes()->where('user_id', $user->id)->get()->count() == 1)
+            $equipo->componentes()->detach($user->id);
+
+        return view('web.equipoDetalle', ['equipo' => $equipo, 'jugadores' => $equipo->componentes()->orderBy('nick', 'asc')->get()]);
     }
 }

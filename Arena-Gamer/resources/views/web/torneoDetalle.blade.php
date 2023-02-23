@@ -16,7 +16,10 @@
 
     <p>Juego: {{$torneo->juego_id}}</p>
 
-    <a href="#" class="btn btn-primary">Inscribirse</a>
+
+    
+
+    <a href="/torneos/{{$torneo->id}}/equipos/{{$equipo->id}}" class="btn btn-primary">Inscribirse</a>
 </div>
 
 @endsection

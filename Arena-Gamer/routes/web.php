@@ -27,7 +27,12 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/equipos/{equipo}/jugadores/{user}', [equiposController::class, 'inscribirse']);
+    Route::get('/equipos/{equipo}/jugadores/{user}/borrar', [equiposController::class, 'desinscribirse']);
+    Route::get('/torneos/{torneo}/equipos/{equipo}', [torneosController::class, 'inscribirse']);
+    Route::get('/torneos/{torneo}/equipos/{equipo}/borrar', [torneosController::class, 'desinscribirse']);
 
+    Route::get('/dashboard', [juegosController::class, 'index'])->name('dashboard');
 
 });
 
