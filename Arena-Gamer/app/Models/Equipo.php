@@ -11,6 +11,8 @@ class Equipo extends Model
 {
     use HasFactory;
 
+    public $timestamps = false;
+
     public function componentes(): BelongsToMany
     {
         return $this->belongsToMany(User::class, 'jugador_equipo');

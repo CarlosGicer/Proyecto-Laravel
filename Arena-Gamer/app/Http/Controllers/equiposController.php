@@ -16,7 +16,7 @@ class equiposController extends Controller
      */
     public function index()
     {
-        return view('web.equipos', ['equipos' => Equipo::all()]);
+        return view('web.equipos', ['equipos' => Equipo::paginate(10)]);
     }
 
     /**
@@ -26,7 +26,7 @@ class equiposController extends Controller
      */
     public function create()
     {
-        //
+        return view('web.formNuevoEquipo');
     }
 
     /**
@@ -37,7 +37,24 @@ class equiposController extends Controller
      */
     public function store(Request $request)
     {
-        //
+    
+
+        $equipo = new Equipo();
+        $equipo->nombre = $request->input('nombre');
+
+        $path = $request->file('imagen')->store('public');
+        // /public/nombreimagengenerado.jpg
+        //Cambiamos public por storage en la BBDD para que se pueda ver la imagen en la web
+        $equipo->imagen =  str_replace('public', 'storage', $path);
+
+        $equipo->modalidad = $request->input('modalidad');
+        $equipo->estado = $request->input('estado');
+ 
+
+       $equipo->save();
+
+       return redirect('equipos/');
+       
     }
 
     /**
@@ -80,9 +97,10 @@ class equiposController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Equipo $equipo)
     {
-        //
+        $equipo->delete();
+        return redirect('/equipos');
     }
 
     public function inscribirse(Equipo $equipo, User $user)
@@ -90,7 +108,7 @@ class equiposController extends Controller
         if ($equipo->componentes()->where('user_id', $user->id)->get()->count() == 0)
             $equipo->componentes()->attach($user->id, ['created_at' => Carbon::now()]);
 
-        return view('web.equipoDetalle', ['equipo' => $equipo, 'jugadores' => $equipo->componentes()->orderBy('nick', 'asc')->get()]);
+            return redirect('equipos/'.$equipo->id);
     }
 
     public function desinscribirse(Equipo $equipo, User $user)
@@ -98,6 +116,6 @@ class equiposController extends Controller
         if ($equipo->componentes()->where('user_id', $user->id)->get()->count() == 1)
             $equipo->componentes()->detach($user->id);
 
-        return view('web.equipoDetalle', ['equipo' => $equipo, 'jugadores' => $equipo->componentes()->orderBy('nick', 'asc')->get()]);
+            return redirect('equipos/'.$equipo->id);
     }
 }

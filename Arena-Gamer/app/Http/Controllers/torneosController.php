@@ -3,9 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\Models\Equipo;
+use App\Models\Juego;
 use App\Models\Torneo;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class torneosController extends Controller
 {
@@ -16,7 +18,7 @@ class torneosController extends Controller
      */
     public function index()
     {
-        return view('web.torneos', [ 'torneos' => Torneo::all() ]);
+        return view('web.torneos', ['torneos' => Torneo::all()]);
     }
 
     /**
@@ -26,7 +28,7 @@ class torneosController extends Controller
      */
     public function create()
     {
-        //
+        return view('web.formNuevoTorneo', ['juegos' => Juego::all()]);
     }
 
     /**
@@ -37,7 +39,18 @@ class torneosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $torneo = new Torneo();
+        $torneo->nombre = $request->input('nombre');
+        $torneo->fecha = $request->input('fecha');
+        $torneo->max_equipos = $request->input('max_equipos');
+        $torneo->modalidad = $request->input('modalidad');
+        $torneo->estado = $request->input('estado');
+        $torneo->nivel = $request->input('nivel');
+        $torneo->juego_id = $request->input('juego_id');
+
+        $torneo->save();
+
+        return redirect('/torneos');
     }
 
     /**
@@ -48,7 +61,7 @@ class torneosController extends Controller
      */
     public function show(Torneo $torneo)
     {
-        return view('web.torneoDetalle', ['torneo' => $torneo]);
+        return view('web.torneoDetalle', ['torneo' => $torneo, 'equipos' => $torneo->equipos()->orderBy('nombre', 'asc')->get()]);
     }
 
     /**
@@ -80,25 +93,36 @@ class torneosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Torneo $torneo)
     {
-        //
+        $torneo->delete();
+        return redirect('/torneos');
     }
 
 
-    public function inscribirse(Torneo $torneo , Equipo $equipo)
+    public function inscribir(Torneo $torneo)
     {
-        if ($torneo->componentes()->where('equipo_id', $equipo->id)->get()->count() == 0)
-            $torneo->componentes()->attach($equipo->id, ['created_at' => Carbon::now()]);
+        //Sacar todos los grupo del usuario logueado
+        $equipos = Auth::user()->equipos()->get();
 
-        return view('web.torneoDetalle', ['torneo' => $torneo, 'equipo' => $torneo->componentes()->orderBy('nombre', 'asc')->get()]);
+        return view('web.formRegistrarEquipo', ['equipos' => $equipos, 'torneo' => $torneo]);
     }
 
-    public function desinscribirse(Torneo $torneo , Equipo $equipo)
+    public function registrar(Torneo $torneo, Request $request)
     {
-        if ($torneo->componentes()->where('equipo_id', $equipo->id)->get()->count() == 1)
-            $torneo->componentes()->detach($equipo->id);
+        $equipo_id = $request->equipo;
 
-        return view('web.torneoDetalle', ['torneo' => $torneo, 'equipo' => $torneo->componentes()->orderBy('nombre', 'asc')->get()]);
+        $torneo->equipos()->attach($equipo_id);
+
+        $equipos = Auth::user()->equipos()->get();
+        return redirect('torneos/'.$torneo->id);
+    }
+
+    public function desinscribir(Torneo $torneo, Equipo $equipo)
+    {
+        if ($torneo->equipos()->where('equipo_id', $equipo->id)->get()->count() == 1)
+            $torneo->equipos()->detach($equipo->id);
+
+            return redirect('torneos/'.$torneo->id);
     }
 }

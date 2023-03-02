@@ -10,8 +10,9 @@ class Torneo extends Model
 {
     use HasFactory;
 
-    public function componentes(): BelongsToMany
+    public $timestamps = false;
+    public function equipos(): BelongsToMany
     {
-        return $this->belongsToMany(User::class, 'equipo_torneo');
+        return $this->belongsToMany(Equipo::class, 'equipo_torneo');
     }
 }

@@ -24,7 +24,7 @@ class juegosController extends Controller
      */
     public function create()
     {
-        //
+        return view('web.formNuevoJuego');
     }
 
     /**
@@ -35,7 +35,21 @@ class juegosController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $juego = new Juego();
+        $juego->nombre = $request->input('nombre');
+        $juego->plataforma = $request->input('plataforma');
+       
+        $path = $request->file('imagen')->store('public');
+        // /public/nombreimagengenerado.jpg
+        //Cambiamos public por storage en la BBDD para que se pueda ver la imagen en la web
+        $juego->imagen =  str_replace('public', 'storage', $path);
+
+        $juego->descripción = $request->input('descripcion');
+ 
+
+       $juego->save();
+
+       return redirect('juegos');
     }
 
     /**
@@ -78,8 +92,9 @@ class juegosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Juego $juego)
     {
-        //
+        $juego->delete();
+        return redirect('/juegos');
     }
 }
