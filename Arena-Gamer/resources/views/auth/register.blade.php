@@ -23,13 +23,19 @@
             <x-input-error :messages="$errors->get('fnacimiento')" class="mt-2" />
         </div>
 
-        <!--fecha -->
-        <div class="mt-4">
-            <x-input-label for="juego_favorito_id" :value="__('Juego Favorito')" />
-            <x-text-input id="juego_favorito_id" class="block mt-1 w-full" type="text" name="juego_favorito_id" :value="old('juego_favorito_id')" required autocomplete="juego_favorito_id" />
+        <!--juego -->
+        <div>
+            <x-input-label for="juego_favorito_id" :value="__('juego favorito')" />
+            <select name="juego_favorito_id" class="block mt-1 w-full">
+            @foreach($juegos as $juego)
+            <option class="block mt-1 w-full" value="{{ $juego->id }}">{{ $juego->nombre }}</option>
+            @endforeach
             <x-input-error :messages="$errors->get('juego_favorito_id')" class="mt-2" />
+            </select>
         </div>
 
+
+       
         <!-- Email Address -->
         <div class="mt-4">
             <x-input-label for="email" :value="__('Email')" />

@@ -1,4 +1,4 @@
-@extends('web.layout')
+@extends('admin.layout')
 
 @section('titulo', 'Juegos de Torneos')
 

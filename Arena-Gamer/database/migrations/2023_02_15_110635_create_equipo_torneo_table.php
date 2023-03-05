@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('equipo_torneo', function (Blueprint $table) {
             $table->primary(['equipo_id', 'torneo_id']);
-            $table->foreignId('equipo_id')->references('id')->on('equipos');
-            $table->foreignId('torneo_id')->references('id')->on('torneos');
+            $table->foreignId('equipo_id')->references('id')->on('equipos')->onDelete('cascade');;
+            $table->foreignId('torneo_id')->references('id')->on('torneos')->onDelete('cascade');;
             $table->timestamp('created_at')->nullable();
         });
     }

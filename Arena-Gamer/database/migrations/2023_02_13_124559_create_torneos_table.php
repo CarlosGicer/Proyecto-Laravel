@@ -21,7 +21,7 @@ return new class extends Migration
             $table->integer('modalidad');
             $table->string('estado');
             $table->enum('nivel',['principiante','intermedio','alto']);
-            $table->foreignId('juego_id')->references('id')->on('juegos');
+            $table->foreignId('juego_id')->references('id')->on('juegos')->onDelete('cascade');;
 
         });
     }

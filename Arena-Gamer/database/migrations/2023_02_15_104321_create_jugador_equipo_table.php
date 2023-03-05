@@ -15,8 +15,8 @@ return new class extends Migration
     {
         Schema::create('jugador_equipo', function (Blueprint $table) {
             $table->primary(['user_id', 'equipo_id']);
-            $table->foreignId('user_id')->references('id')->on('users');
-            $table->foreignId('equipo_id')->references('id')->on('equipos');
+            $table->foreignId('user_id')->references('id')->on('users')->onDelete('cascade');;
+            $table->foreignId('equipo_id')->references('id')->on('equipos')->onDelete('cascade');;
             $table->timestamp('created_at')->nullable();
         });
     }

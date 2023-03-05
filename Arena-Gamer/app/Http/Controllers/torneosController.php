@@ -17,9 +17,17 @@ class torneosController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
+    
     {
-        return view('web.torneos', ['torneos' => Torneo::all()]);
+        return view('web.torneos', ['torneos' => Torneo::paginate(4), 'juegos' => Juego::all() ]);
     }
+
+    
+    public function indexAdmin()
+    {
+        return view('admin.adminTorneos', ['torneos' => Torneo::paginate(8), 'juegos' => Juego::all() ]);
+    }
+    
 
     /**
      * Show the form for creating a new resource.
@@ -28,7 +36,7 @@ class torneosController extends Controller
      */
     public function create()
     {
-        return view('web.formNuevoTorneo', ['juegos' => Juego::all()]);
+        return view('admin.formNuevoTorneo', ['juegos' => Juego::all()]);
     }
 
     /**
@@ -50,7 +58,7 @@ class torneosController extends Controller
 
         $torneo->save();
 
-        return redirect('/torneos');
+        return redirect('/torneos/admin/admin');
     }
 
     /**
@@ -61,7 +69,7 @@ class torneosController extends Controller
      */
     public function show(Torneo $torneo)
     {
-        return view('web.torneoDetalle', ['torneo' => $torneo, 'equipos' => $torneo->equipos()->orderBy('nombre', 'asc')->get()]);
+        return view('web.torneoDetalle', ['torneo' => $torneo, 'equipos' => $torneo->equipos()->orderBy('nombre', 'asc')->get(), 'juegos' => Juego::all()]);
     }
 
     /**
@@ -96,7 +104,7 @@ class torneosController extends Controller
     public function destroy(Torneo $torneo)
     {
         $torneo->delete();
-        return redirect('/torneos');
+        return redirect('/torneos/admin/admin');
     }
 
 

@@ -2,12 +2,14 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Equipo;
 use App\Models\Juego;
 use App\Models\Torneo;
 use Illuminate\Http\Request;
 
-class juegosController extends Controller
+class inicioController extends Controller
 {
+  
     /**
      * Display a listing of the resource.
      *
@@ -15,13 +17,9 @@ class juegosController extends Controller
      */
     public function index()
     {
-        return view('web.juegos', [ 'juegos' => Juego::paginate(4) ]);
+        return view('welcome', [ 'juegos' => Juego::paginate(6), 'equipos' => Equipo::all(), 'torneos' => Torneo::all() ]);
     }
 
-    public function indexAdmin()
-    {
-        return view('admin.adminJuegos', [ 'juegos' => Juego::paginate(5) ]);
-    }
     /**
      * Show the form for creating a new resource.
      *
@@ -29,7 +27,7 @@ class juegosController extends Controller
      */
     public function create()
     {
-        return view('admin.formNuevoJuego');
+       
     }
 
     /**
@@ -38,23 +36,11 @@ class juegosController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store()
     {
-        $juego = new Juego();
-        $juego->nombre = $request->input('nombre');
-        $juego->plataforma = $request->input('plataforma');
+    
+
        
-        $path = $request->file('imagen')->store('public');
-        // /public/nombreimagengenerado.jpg
-        //Cambiamos public por storage en la BBDD para que se pueda ver la imagen en la web
-        $juego->imagen =  str_replace('public', 'storage', $path);
-
-        $juego->descripción = $request->input('descripcion');
- 
-
-       $juego->save();
-
-       return redirect('juegos/admin/admin');
     }
 
     /**
@@ -63,9 +49,9 @@ class juegosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function show(Juego $juego, Torneo $torneo) 
+    public function show()
     {
-        return view('web.juegoDetalle', ['juego' => $juego, 'torneos' => $torneo::all()]);
+      
     }
 
     /**
@@ -97,9 +83,10 @@ class juegosController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Juego $juego)
+    public function destroy()
     {
-        $juego->delete();
-        return redirect('/juegos/admin/admin');
+       
     }
+
+   
 }

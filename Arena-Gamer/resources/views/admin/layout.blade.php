@@ -13,7 +13,7 @@
 <body>
 
     <!--NAV----->
-    <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top fs-4">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-success sticky-top fs-4">
         <div class="container-fluid  ">
             <a class="navbar-brand fs-2 ms-5 " href="/"> <img src="https://www.linkpicture.com/q/logo_164.png" alt="" width="70px" height="70px"></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup"
@@ -22,9 +22,9 @@
             </button>
             <div class="collapse navbar-collapse  justify-content-center ms-5  " id="navbarNavAltMarkup">
                 <div class="navbar-nav pe-3 ms-5">
-                    <a class="nav-link  pe-3" href="/equipos">Equipos</a>
-                    <a class="nav-link  pe-3" href="/torneos">Torneos</a>
-                    <a class="nav-link  pe-3" href="/juegos">Juegos</a>
+                    <a class="nav-link  pe-3" href="/equipos/admin/admin">Equipos</a>
+                    <a class="nav-link  pe-3" href="/torneos/admin/admin">Torneos</a>
+                    <a class="nav-link  pe-3" href="/juegos/admin/admin">Juegos</a>
                     @auth
                         <li><a class="nav-link scrollto" href="/profile">Perfil</a></li>
                     @else
@@ -50,7 +50,7 @@
     </div>
 
     <!--PIE---->
-    <footer class="w-100 py-4 flex-shrink-0  bg-dark text-light " >
+    <footer class="w-100 py-4 flex-shrink-0  bg-success text-light"  >
         <div class="container py-4">
             <div class="row gy-4 gx-5">
                 <div class="col-lg-4 col-md-6">

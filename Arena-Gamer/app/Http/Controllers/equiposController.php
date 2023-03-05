@@ -16,7 +16,13 @@ class equiposController extends Controller
      */
     public function index()
     {
-        return view('web.equipos', ['equipos' => Equipo::paginate(10)]);
+        return view('web.equipos', ['equipos' => Equipo::paginate(4) ]);
+    }
+
+    
+    public function indexAdmin()
+    {
+        return view('admin.adminEquipos', ['equipos' => Equipo::paginate(8)]);
     }
 
     /**

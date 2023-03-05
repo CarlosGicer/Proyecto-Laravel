@@ -24,7 +24,7 @@ return new class extends Migration
             $table->string('password');
             $table->date('fnacimiento');
             $table->string('imagen')->nullable();
-            $table->foreignId('juego_favorito_id')->references('id')->on('juegos')->nullable();
+            $table->foreignId('juego_favorito_id')->references('id')->on('juegos')->nullable()->onDelete('cascade');
             $table->enum('nivel',['principiante','intermedio','alto'])->nullable();
             $table->rememberToken();
             $table->timestamps();
